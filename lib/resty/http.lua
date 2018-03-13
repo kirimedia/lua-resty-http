@@ -602,6 +602,9 @@ function _M.send_request(self, params)
     if params.version == 1.0 and not headers["Connection"] then
         headers["Connection"] = "Keep-Alive"
     end
+    if not headers["X-Request-ID"] then
+        pcall(function() headers["X-Request-ID"] = ngx.var.x_request_id end)
+    end
 
     params.headers = headers
 
